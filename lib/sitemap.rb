@@ -1,6 +1,7 @@
 require "open-uri"
 require "nokogiri"
 require "zlib"
+require "page"
 
 class Sitemap
   def initialize(uri)
@@ -15,8 +16,18 @@ class Sitemap
 
     case sitemap.root.name
     when "urlset"
-      sitemap.xpath("/s:urlset/s:url/s:loc", namespaces).each do |element|
-        yield element.text
+      sitemap.xpath("/s:urlset/s:url", namespaces).each do |element|
+        loc = element.xpath("s:loc", namespaces)
+        lastmod = element.xpath("s:lastmod", namespaces)
+        changefreq = element.xpath("s:changefreq", namespaces)
+        priority = element.xpath("s:priority", namespaces)
+        page = Page.new(
+          URI.parse(loc.text),
+          Date.parse(lastmod.text),
+          changefreq.text,
+          Float(priority.text)
+        )
+        yield page
       end
     when "sitemapindex"
       sitemap.xpath("/s:sitemapindex/s:sitemap/s:loc", namespaces).each do |element|

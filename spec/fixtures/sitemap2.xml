@@ -1,8 +1,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>three</loc>
+    <loc>http://example.com/three</loc>
+    <lastmod>1999-12-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>four</loc>
+    <loc>http://example.com/four</loc>
+    <lastmod>2012-01-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
   </url>
 </urlset>
